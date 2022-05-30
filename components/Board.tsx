@@ -10,19 +10,21 @@ export interface ICard {
 const Board = (): ReactElement => {
   const [cards, setCards] = useState<ICard[]>([
     { content: "1", canDrag: false },
-    { content: "2", canDrag: false },
+    { content: "2", canDrag: true },
     { content: "3", canDrag: false },
-    { content: "4", canDrag: false },
-    { content: "-", canDrag: false },
-    { content: "5", canDrag: false },
+    { content: "4", canDrag: true },
+    { content: "-", canDrag: true },
+    { content: "5", canDrag: true },
     { content: "6", canDrag: false },
-    { content: "7", canDrag: false },
+    { content: "7", canDrag: true },
     { content: "8", canDrag: false },
   ]);
 
   function shuffle(array: ICard[]) {
     let currentIndex = array.length,
       randomIndex;
+
+    const newArray = array.map(item => ({...item, canDrag: false}))
 
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
@@ -31,19 +33,80 @@ const Board = (): ReactElement => {
       currentIndex--;
 
       // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
+      [newArray[currentIndex], newArray[randomIndex]] = [
+        newArray[randomIndex],
+        newArray[currentIndex],
       ];
     }
 
-    return array;
+    if (newArray[0].content === '-') {
+      console.log('caso 0')
+      newArray[0].canDrag = true
+      newArray[1].canDrag = true
+      newArray[3].canDrag = true
+
+    } else if (newArray[1].content === '-') {
+      console.log('caso 1')
+      newArray[0].canDrag = true
+      newArray[1].canDrag = true
+      newArray[2].canDrag = true
+      newArray[4].canDrag = true
+
+    } else if (newArray[2].content === '-') {
+      console.log('caso 2')
+      newArray[1].canDrag = true
+      newArray[2].canDrag = true
+      newArray[5].canDrag = true
+
+    } else if (newArray[3].content === '-') {
+      console.log('caso 3')
+      newArray[0].canDrag = true
+      newArray[3].canDrag = true
+      newArray[4].canDrag = true
+      newArray[6].canDrag = true
+
+    } else if (newArray[4].content === '-') {
+      console.log('caso 4')
+      newArray[1].canDrag = true
+      newArray[4].canDrag = true
+      newArray[3].canDrag = true
+      newArray[5].canDrag = true
+      newArray[7].canDrag = true
+
+    } else if (newArray[5].content === '-') {
+      console.log('caso 5')
+      newArray[2].canDrag = true
+      newArray[5].canDrag = true
+      newArray[4].canDrag = true
+      newArray[8].canDrag = true
+
+    } else if (newArray[6].content === '-') {
+      console.log('caso 6')
+      newArray[3].canDrag = true
+      newArray[6].canDrag = true
+      newArray[7].canDrag = true
+
+    } else if (newArray[7].content === '-') {
+      console.log('caso 7')
+      newArray[4].canDrag = true
+      newArray[7].canDrag = true
+      newArray[6].canDrag = true
+      newArray[8].canDrag = true
+      
+    } else if (newArray[8].content === '-') {
+      console.log('caso 8')
+      newArray[5].canDrag = true
+      newArray[8].canDrag = true
+      newArray[7].canDrag = true
+    }
+
+    return newArray;
   }
 
   const onClickRestart = (): void => {
     const newCards: ICard[] = shuffle(cards);
     setCards(newCards.map((item) => item));
-    console.log("shuffle", shuffle(cards));
+    console.log("newCards", newCards);
   };
 
   return (
