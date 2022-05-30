@@ -3,7 +3,6 @@ import type { NextPage } from "next";
 
 import Head from "next/head";
 import Board from "../components/Board";
-import Menu from "../components/Menu";
 
 const Home: NextPage = () => {
   return (
@@ -21,10 +20,8 @@ const Home: NextPage = () => {
       <div
         id="content-wrapper"
         className="flex flex-col items-center justify-center w-full h-screen max-h-screen overflow-hidden text-5xl text-game-light-blue bg-gradient-to-b from-game-dark to-game-purple"
-
       >
-          <Menu />
-          <Board />
+        <Board />
       </div>
     </>
   );
